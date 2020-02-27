@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
         health = 1;
         var rigidbody = gameObject.GetComponent<Rigidbody>();
         rigidbody.isKinematic = true;
-        rigidbody.velocity = Vector3.zero;
+        //rigidbody.velocity = Vector3.zero;
     }
 
     public void SetDamage(int damage)

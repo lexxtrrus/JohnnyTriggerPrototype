@@ -34,11 +34,12 @@ public class Bullet : MonoBehaviour
     {
         if(collision.transform.root.gameObject.TryGetComponent<Health>(out Health health))
         {
+            //Debug.Log("shootEnemy");
             health.SetDamage(damage);
             var rigidbody = health.gameObject.GetComponent<Rigidbody>();
-            rigidbody.freezeRotation = false;
             rigidbody.isKinematic = false;
-            rigidbody.AddForce((transform.position - health.transform.position) * 5f, ForceMode.Impulse);
+            rigidbody.freezeRotation = false;            
+            rigidbody.AddForce((transform.position - health.transform.position) * 1f, ForceMode.Impulse);
         }
     }
 }
