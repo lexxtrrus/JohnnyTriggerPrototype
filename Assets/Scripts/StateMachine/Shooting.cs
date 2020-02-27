@@ -17,12 +17,16 @@ public class Shooting : State
     {
         base.Exit();
         WeaponShooting.OnEndTargeting?.Invoke();
-        //Time.timeScale = 1f;
+        Time.timeScale = 1f;
     }
 
     public override void InputLogic()
     {
         base.InputLogic();
+        if(Input.GetMouseButtonDown(0))
+        {
+            character.CharacterShoot();
+        }
     }
 
     public override void LogicUpdate()

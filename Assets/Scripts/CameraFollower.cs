@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,14 +13,18 @@ public class CameraFollower : MonoBehaviour
     private float jumpHeight = 1f;
     private float speedJump = 0.9f;
 
+    public static Action stopFollowing;
+
     private void Awake()
     {
         TapForStartCheck.OnTapForStartAction += StartFollowing;
+        stopFollowing += StopFollowing;
     }
 
     private void OnDisable()
     {
         TapForStartCheck.OnTapForStartAction -= StartFollowing;
+        stopFollowing -= StopFollowing;
     }
     private void Update()
     {
@@ -31,6 +36,11 @@ public class CameraFollower : MonoBehaviour
     private void StartFollowing()
     {
         IsFollowing = true;
+    }
+
+    private void StopFollowing()
+    {
+        IsFollowing = false;
     }
 
     private void CameraMovement()
@@ -46,6 +56,11 @@ public class CameraFollower : MonoBehaviour
 
         if (iteration < 30f) return;
         iteration = 0f;
+    }
+
+    public void SetIteration(float iteration)
+    {
+        this.iteration = iteration;
     }
 
 

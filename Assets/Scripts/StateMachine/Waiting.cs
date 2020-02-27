@@ -10,13 +10,11 @@ public class Waiting : State
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Waiting");
     }
 
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("ExitWaiting");
     }
 
     public override void InputLogic()

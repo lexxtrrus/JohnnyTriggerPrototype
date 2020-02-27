@@ -14,7 +14,7 @@ public class TapForStartCheck : MonoBehaviour
     {
         tapStartText = GetComponent<Text>();
     }
-    private void Awake()
+    private void OnEnable()
     {
         OnTapForStartAction += HideStartTapText;
     }

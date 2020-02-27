@@ -10,13 +10,11 @@ public class Running : State
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("StartRunning");
     }
 
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("ExitRunning");
     }
 
     public override void InputLogic()

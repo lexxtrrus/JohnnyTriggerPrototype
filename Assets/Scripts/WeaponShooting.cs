@@ -20,6 +20,8 @@ public class WeaponShooting : MonoBehaviour
     {
         OnStartTargeting += StartTargeting;
         OnEndTargeting += EndTargeting;
+
+
     }
 
     private void OnDisable()
@@ -32,11 +34,10 @@ public class WeaponShooting : MonoBehaviour
     {
         if (!IsTargeting) return;
 
-        Debug.Log("draw line");
-
         positions[0] = pointOfShoot.position;
 
-        Physics.Raycast(pointOfShoot.localPosition, pointOfShoot.right, out hit, dinstanceOfLine);
+
+        Physics.Raycast(pointOfShoot.position, pointOfShoot.right, out hit, 5f);
         
         if(hit.collider != null)
         {
@@ -53,12 +54,12 @@ public class WeaponShooting : MonoBehaviour
     private void StartTargeting()
     {
         IsTargeting = true;
-        Debug.Log("start");
     }
 
     private void EndTargeting()
     {
         IsTargeting = false;
-        Debug.Log("finish");
+        lineRenderer.SetPosition(0, Vector3.zero);
+        lineRenderer.SetPosition(1, Vector3.zero);
     }
 }
