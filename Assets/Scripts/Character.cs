@@ -101,7 +101,7 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(time);
         stateMachine.ChangeState(state);
         changeStateTimer = Time.time + 3f;
-        Time.timeScale = 1f;
+        Time.timeScale = 0.7f;
     }
 
     public void CharacterShoot()

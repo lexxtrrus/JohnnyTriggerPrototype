@@ -13,6 +13,8 @@ public class FinalReached : MonoBehaviour
         if (collision.transform.root.gameObject.TryGetComponent<Character>(out Character character))
         {
             Time.timeScale = 1f;
+            CameraFollower.stopFollowing?.Invoke();
+            character.ChangeState(0f, character.waitingState);
             resultsPanel.SetActive(true);
             pauseButton.enabled = false;
         }
