@@ -6,9 +6,12 @@ public class Health : MonoBehaviour
 {
     public int health = 1;
 
+    public Bullet lastTouched { get; set; }
+
     private void OnEnable()
     {
         health = 1;
+        lastTouched = null;
         var rigidbody = gameObject.GetComponent<Rigidbody>();
         rigidbody.isKinematic = true;
         //rigidbody.velocity = Vector3.zero;

@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int countOfCheckpoint = 0;
 
+    private Profile profile;
+
     public static Action<int> OnCheckpointReached;
     public static Action OnRestartFromCheckPoint;
 

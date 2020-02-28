@@ -4,42 +4,49 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float startTime = 0f;
     private int damage;
-
-    private void OnEnable()
-    {
-        startTime = Time.time + 2f;
-    }
-
-    private void OnDisable()
-    {
-        startTime = 0f;
-    }
-
-    private void Update()
-    {
-        if(Time.time > startTime)
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
-    public void SetDamage(int damage)
-    {
-        this.damage = damage;
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.root.gameObject.TryGetComponent<Health>(out Health health))
+        StartCoroutine(HideBullet());
+
+        if (collision.transform.root.gameObject.TryGetComponent<Health>(out Health health))
         {
-            //Debug.Log("shootEnemy");
+            if (health.lastTouched != null) return;
             health.SetDamage(damage);
             var rigidbody = health.gameObject.GetComponent<Rigidbody>();
             rigidbody.isKinematic = false;
             rigidbody.freezeRotation = false;            
             rigidbody.AddForce((transform.position - health.transform.position) * 1f, ForceMode.Impulse);
+
+            //if (health.lastTouched != null) return;
+
+            if (collision.collider.TryGetComponent<HeadRotation>(out HeadRotation head))
+            {
+                health.lastTouched = this;
+                MoneyCounter.OnBulletTouched?.Invoke(15);
+                Debug.Log("head");
+                return;
+            }
+
+            if (collision.collider.TryGetComponent<BodyLogic>(out BodyLogic body))
+            {
+                health.lastTouched = this;
+                MoneyCounter.OnBulletTouched?.Invoke(10);
+                Debug.Log("body");
+                return;
+            }
         }
+    }
+
+    public void SetDamage(int value)
+    {
+        damage = value;
+    }
+
+    private IEnumerator HideBullet()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameObject.SetActive(false);
     }
 }
