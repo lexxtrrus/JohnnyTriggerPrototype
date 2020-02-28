@@ -12,17 +12,27 @@ public class BulletCapacityPanel : MonoBehaviour
     public static  Action OnBulletRemoved;
     public static  Action OnBulletAdded;
 
-    private void Awake()
+    private void OnEnable()
     {
         count = images.Count;
         OnBulletAdded += AddImage;
         OnBulletRemoved += RemoveImage;
+        GameManager.OnRestartFromCheckPoint += ResetBullets;        
+    }
+
+    private void ResetBullets()
+    {
+        foreach (var image in images)
+        {
+            image.enabled = true;
+        }
     }
 
     private void OnDisable()
     {
         OnBulletAdded -= AddImage;
         OnBulletRemoved -= RemoveImage;
+        GameManager.OnRestartFromCheckPoint -= ResetBullets;
     }
 
     private void RemoveImage()

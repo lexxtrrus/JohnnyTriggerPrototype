@@ -12,7 +12,7 @@ public class FinalReached : MonoBehaviour
     {
         if (collision.transform.root.gameObject.TryGetComponent<Character>(out Character character))
         {
-            Time.timeScale = 0f;
+            Time.timeScale = 1f;
             resultsPanel.SetActive(true);
             pauseButton.enabled = false;
         }

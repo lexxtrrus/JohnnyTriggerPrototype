@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class Running : State
 {
-    public Running(StateMachine stateMachine, Character character) : base(stateMachine, character)
+    CameraFollower camera;
+
+    public Running(StateMachine stateMachine, Character character, CameraFollower camera) : base(stateMachine, character)
     {
-        
+        this.camera = camera; 
     }
 
     public override void Enter()
     {
         base.Enter();
+        Time.timeScale = 1f;
     }
 
     public override void Exit()
@@ -31,6 +34,6 @@ public class Running : State
     {
         base.PhysicsUpdate();
         character.Movement();
-        //.RotateCharacter();
+        camera.CameraMovement();
     }
 }

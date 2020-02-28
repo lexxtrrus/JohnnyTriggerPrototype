@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PauseButton : MonoBehaviour
 {
     [SerializeField] private Button pauseButton;
     [SerializeField] private GameObject pausePanel;
 
-    private void Awake()
+
+    private void OnEnable()
     {
         pauseButton.onClick.AddListener(LoadGame);
+        GameManager.OnRestartFromCheckPoint += ShowButton;
+        Character.OnDeath += HideButton;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnRestartFromCheckPoint -= ShowButton;
+        Character.OnDeath -= HideButton;
     }
 
     private void LoadGame()
@@ -19,4 +29,14 @@ public class PauseButton : MonoBehaviour
         pausePanel.SetActive(true);
         pauseButton.enabled = false;
     }
-}
+
+    private void ShowButton()
+    {
+        gameObject.SetActive(true);
+    }
+
+    private void HideButton()
+    {
+        gameObject.SetActive(false);
+    }
+ }

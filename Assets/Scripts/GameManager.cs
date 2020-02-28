@@ -54,8 +54,9 @@ public class GameManager : MonoBehaviour
 
     public void SetAllFirstCheckPoint()
     {
+        player.gameObject.SetActive(true);
         player.transform.position = checkPoints[0].position;
-        player.transform.rotation = Quaternion.identity;
+        player.transform.rotation = checkPoints[0].rotation;
         camera.position = player.position + new Vector3(1f, 0.75f, -15f);
 
         player.GetComponent<Character>().SetIteration(0f);
@@ -76,11 +77,12 @@ public class GameManager : MonoBehaviour
 
     public void SetAllSecondCheckPoint()
     {
+        player.gameObject.SetActive(true);
         player.GetComponent<Character>().SetIteration(10.5f);
         player.transform.position = checkPoints[1].position;
         player.transform.rotation = Quaternion.identity;
         camera.GetComponent<CameraFollower>().SetIteration(15f);
-        camera.position = player.position + new Vector3(1f, 0.75f, -15f);
+        camera.position = player.position + new Vector3(1f, 4.55f, -15f);
 
         for (int i = 0; i < enemies.Length; i++)
         {

@@ -22,18 +22,28 @@ public class Character : MonoBehaviour
     private float _iteration = 0f;
     private float changeStateTimer = 0f;
 
+    public Health health;
     public static Action OnStartWaiting;
+    public static Action OnDeath;
 
     private void Awake() 
     {
         stateMachine = new StateMachine();
-
+        var camera = Camera.main.GetComponent<CameraFollower>();
         waitingState = new Waiting(stateMachine, this);
-        runningState = new Running(stateMachine, this);
-        shootingState = new Shooting(stateMachine, this);
+        runningState = new Running(stateMachine, this, camera);
+        shootingState = new Shooting(stateMachine, this, camera);
         deathState = new Death(stateMachine, this);
         OnStartWaiting += StartWaiting;
+        health = GetComponent<Health>();
+        stateMachine.Initialize(waitingState);
         StartWaiting();
+    }
+
+    private void OnEnable()
+    {
+        Time.timeScale = 1f;
+        StartWaiting(); 
     }
 
     private void OnDisable()
@@ -45,6 +55,13 @@ public class Character : MonoBehaviour
     {
         stateMachine.CurrnetState.InputLogic();
         stateMachine.CurrnetState.LogicUpdate();
+
+        if(health.health <= 0)
+        {
+            stateMachine.ChangeState(deathState);
+            OnDeath?.Invoke();
+            Time.timeScale = 1f;
+        }
     }
 
     private void FixedUpdate() 
@@ -70,22 +87,21 @@ public class Character : MonoBehaviour
     public void RotateCharacter()
     {
         characterCraphics.Rotate(new Vector3(0f, 0f, RotationSpeed) * Time.fixedDeltaTime);
-        if(Time.time - changeStateTimer > 3f)
+        if(Time.time > changeStateTimer)
         {
             characterCraphics.Rotate(Vector3.zero);
             stateMachine.ChangeState(runningState);
             changeStateTimer = 0f;
+            RotationSpeed = 0f;
         }
     }
 
-    
-
-    public IEnumerator ChangeState(float timescale)
+    public IEnumerator ChangeState(float time, State state)
     {
-        yield return new WaitForSeconds(changeStateTimer);
-        stateMachine.ChangeState(shootingState);
-        changeStateTimer = Time.time;
-        Time.timeScale = timescale;
+        yield return new WaitForSeconds(time);
+        stateMachine.ChangeState(state);
+        changeStateTimer = Time.time + 3f;
+        Time.timeScale = 1f;
     }
 
     public void CharacterShoot()
@@ -95,10 +111,11 @@ public class Character : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent<RotationTrigger>(out RotationTrigger rot))
+        var rot = other.gameObject.GetComponent<RotationTrigger>();
+        if(rot)
         {
             RotationSpeed = rot.RotationSpeedData.rotationSpeed;
-            StartCoroutine(ChangeState(0.7f));
+            StartCoroutine(ChangeState(0f, shootingState));
             other.gameObject.SetActive(false);
         }
     }
@@ -110,6 +127,7 @@ public class Character : MonoBehaviour
 
     private void StartWaiting()
     {
-        stateMachine.Initialize(waitingState);
+        characterCraphics.rotation = Quaternion.Euler(Vector3.zero);
+        stateMachine.ChangeState(waitingState);
     }
 }

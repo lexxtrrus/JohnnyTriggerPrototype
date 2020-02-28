@@ -1,22 +1,25 @@
+using System.Collections;
 using UnityEngine;
 
 public class Shooting : State
 {
-    public Shooting(StateMachine stateMachine, Character character) : base(stateMachine, character)
+    private CameraFollower camera;
+
+    public Shooting(StateMachine stateMachine, Character character, CameraFollower camera) : base(stateMachine, character)
     {
-        
+        this.camera = camera;
     }
 
     public override void Enter()
     {
         base.Enter();
-        WeaponShooting.OnStartTargeting?.Invoke();
+        ShowWeaponLineShooting.OnStartTargeting?.Invoke();
     }
 
     public override void Exit()
     {
         base.Exit();
-        WeaponShooting.OnEndTargeting?.Invoke();
+        ShowWeaponLineShooting.OnEndTargeting?.Invoke();
         Time.timeScale = 1f;
     }
 
@@ -39,5 +42,7 @@ public class Shooting : State
         base.PhysicsUpdate();
         character.Movement();
         character.RotateCharacter();
+        camera.CameraMovement();
     }
+
 }

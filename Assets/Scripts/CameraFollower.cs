@@ -11,7 +11,7 @@ public class CameraFollower : MonoBehaviour
     private float startY = -3f;
     private float iteration = 0f;
     private float jumpHeight = 1f;
-    private float speedJump = 0.9f;
+    private float speedJump = 1f;
 
     public static Action stopFollowing;
 
@@ -26,12 +26,13 @@ public class CameraFollower : MonoBehaviour
         TapForStartCheck.OnTapForStartAction -= StartFollowing;
         stopFollowing -= StopFollowing;
     }
+    /*
     private void Update()
     {
-        if (!IsFollowing) return;
+        
 
         CameraMovement();
-    }
+    }*/
 
     private void StartFollowing()
     {
@@ -43,9 +44,11 @@ public class CameraFollower : MonoBehaviour
         IsFollowing = false;
     }
 
-    private void CameraMovement()
+    public void CameraMovement()
     {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+        if (!IsFollowing) return;
+
+        transform.Translate(Vector3.right * speed * Time.fixedDeltaTime);
 
         var pos = transform.position;
 

@@ -10,6 +10,7 @@ public class Waiting : State
     public override void Enter()
     {
         base.Enter();
+        Time.timeScale = 1f;
     }
 
     public override void Exit()

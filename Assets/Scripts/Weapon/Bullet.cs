@@ -8,8 +8,6 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        StartCoroutine(HideBullet());
-
         if (collision.transform.root.gameObject.TryGetComponent<Health>(out Health health))
         {
             if (health.lastTouched != null) return;
@@ -33,6 +31,8 @@ public class Bullet : MonoBehaviour
                 return;
             }
         }
+
+        StartCoroutine(HideBullet());
     }
 
     public void SetDamage(int value)
@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator HideBullet()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0f);
         gameObject.SetActive(false);
     }
 }

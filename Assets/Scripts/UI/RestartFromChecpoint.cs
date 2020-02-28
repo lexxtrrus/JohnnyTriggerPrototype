@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public class RestartLevelButton : MonoBehaviour
+public class RestartFromChecpoint : MonoBehaviour //pause panel
 {
     [SerializeField] private Button restartButton;
     [SerializeField] private Button pauseButton;
@@ -22,6 +22,7 @@ public class RestartLevelButton : MonoBehaviour
         GameManager.OnRestartFromCheckPoint?.Invoke();
         Character.OnStartWaiting?.Invoke();
         CameraFollower.stopFollowing?.Invoke();
+        ShowWeaponLineShooting.OnEndTargeting?.Invoke();
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
     }

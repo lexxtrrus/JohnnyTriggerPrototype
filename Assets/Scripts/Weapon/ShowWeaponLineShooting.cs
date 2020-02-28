@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class WeaponShooting : MonoBehaviour
+public class ShowWeaponLineShooting : MonoBehaviour
 {
     [SerializeField] private Transform pointOfShoot;
     [SerializeField] private LineRenderer lineRenderer;
@@ -16,12 +16,10 @@ public class WeaponShooting : MonoBehaviour
     private RaycastHit hit;
     private bool IsTargeting = false;
 
-    private void Awake()
+    private void OnEnable()
     {
         OnStartTargeting += StartTargeting;
         OnEndTargeting += EndTargeting;
-
-
     }
 
     private void OnDisable()

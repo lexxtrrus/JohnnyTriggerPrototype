@@ -14,7 +14,6 @@ public class Health : MonoBehaviour
         lastTouched = null;
         var rigidbody = gameObject.GetComponent<Rigidbody>();
         rigidbody.isKinematic = true;
-        //rigidbody.velocity = Vector3.zero;
     }
 
     public void SetDamage(int damage)
@@ -29,7 +28,8 @@ public class Health : MonoBehaviour
 
     private IEnumerator HideCharacter()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
+        gameObject.transform.rotation = Quaternion.identity;
     }
 }
