@@ -80,12 +80,12 @@ public class Character : MonoBehaviour
 
     
 
-    public IEnumerator ChangeState()
+    public IEnumerator ChangeState(float timescale)
     {
         yield return new WaitForSeconds(changeStateTimer);
         stateMachine.ChangeState(shootingState);
         changeStateTimer = Time.time;
-        Time.timeScale = 0.5f;
+        Time.timeScale = timescale;
     }
 
     public void CharacterShoot()
@@ -98,7 +98,7 @@ public class Character : MonoBehaviour
         if(other.gameObject.TryGetComponent<RotationTrigger>(out RotationTrigger rot))
         {
             RotationSpeed = rot.RotationSpeedData.rotationSpeed;
-            StartCoroutine(ChangeState());
+            StartCoroutine(ChangeState(0.7f));
             other.gameObject.SetActive(false);
         }
     }

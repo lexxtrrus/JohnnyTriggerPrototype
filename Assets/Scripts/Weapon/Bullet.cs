@@ -19,13 +19,10 @@ public class Bullet : MonoBehaviour
             rigidbody.freezeRotation = false;            
             rigidbody.AddForce((transform.position - health.transform.position) * 1f, ForceMode.Impulse);
 
-            //if (health.lastTouched != null) return;
-
             if (collision.collider.TryGetComponent<HeadRotation>(out HeadRotation head))
             {
                 health.lastTouched = this;
                 MoneyCounter.OnBulletTouched?.Invoke(15);
-                Debug.Log("head");
                 return;
             }
 
@@ -33,7 +30,6 @@ public class Bullet : MonoBehaviour
             {
                 health.lastTouched = this;
                 MoneyCounter.OnBulletTouched?.Invoke(10);
-                Debug.Log("body");
                 return;
             }
         }
