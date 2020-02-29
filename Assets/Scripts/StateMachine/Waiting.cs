@@ -2,39 +2,40 @@ using UnityEngine;
 
 public class Waiting : State
 {
-    public Waiting(StateMachine stateMachine, Character character) : base(stateMachine, character)
+    private Animator animator;
+
+    public Waiting(StateMachine stateMachine, Character character, Animator animator) : base(stateMachine, character)
     {
-        
+        this.animator = animator;
     }
 
     public override void Enter()
     {
-        base.Enter();
         Time.timeScale = 1f;
+        animator.SetInteger("Speed", 0);
     }
 
     public override void Exit()
     {
-        base.Exit();
     }
 
     public override void InputLogic()
     {
-        base.InputLogic();
         if(Input.GetMouseButtonDown(0))
         {
             TapForStartCheck.OnTapForStartAction?.Invoke();
             stateMachine.ChangeState(character.runningState);
+            animator.SetInteger("Speed", 1);
         }
     }
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate();
+
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
+
     }
 }

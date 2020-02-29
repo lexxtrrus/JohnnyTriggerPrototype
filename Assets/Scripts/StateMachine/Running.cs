@@ -2,37 +2,34 @@ using UnityEngine;
 
 public class Running : State
 {
-    CameraFollower camera;
+    private CameraFollower camera;
+    private Animator animator;
 
-    public Running(StateMachine stateMachine, Character character, CameraFollower camera) : base(stateMachine, character)
+    public Running(StateMachine stateMachine, Character character, CameraFollower camera, Animator animator) : base(stateMachine, character)
     {
-        this.camera = camera; 
+        this.camera = camera;
+        this.animator = animator;
     }
 
     public override void Enter()
     {
-        base.Enter();
         Time.timeScale = 1f;
     }
 
     public override void Exit()
     {
-        base.Exit();
     }
 
     public override void InputLogic()
     {
-        base.InputLogic();
     }
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate();
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
         character.Movement();
         camera.CameraMovement();
     }

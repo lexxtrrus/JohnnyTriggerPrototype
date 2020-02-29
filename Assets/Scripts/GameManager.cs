@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private Transform camera;
+    [SerializeField] private Character player;
+    [SerializeField] private CameraFollower camera;
     [SerializeField] private Transform[] enemies;
     [SerializeField] private Transform[] enemiesPlaces;
     [SerializeField] private Transform[] checkPoints;
@@ -57,10 +57,10 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);
         player.transform.position = checkPoints[0].position;
         player.transform.rotation = checkPoints[0].rotation;
-        camera.position = player.position + new Vector3(1f, 0.75f, -15f);
+        camera.transform.position = player.transform.position + new Vector3(1f, 0.75f, -15f);
 
-        player.GetComponent<Character>().SetIteration(0f);
-        camera.GetComponent<CameraFollower>().SetIteration(0f);
+        player.SetIteration(0f);
+        camera.SetIteration(0f);
 
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -78,11 +78,11 @@ public class GameManager : MonoBehaviour
     public void SetAllSecondCheckPoint()
     {
         player.gameObject.SetActive(true);
-        player.GetComponent<Character>().SetIteration(10.5f);
+        player.SetIteration(10.5f);
         player.transform.position = checkPoints[1].position;
         player.transform.rotation = Quaternion.identity;
-        camera.GetComponent<CameraFollower>().SetIteration(15f);
-        camera.position = player.position + new Vector3(1f, 4.55f, -15f);
+        camera.SetIteration(15f);
+        camera.transform.position = player.transform.position + new Vector3(1f, 4.55f, -15f);
 
         for (int i = 0; i < enemies.Length; i++)
         {

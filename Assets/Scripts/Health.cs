@@ -5,6 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public int health = 1;
+    [SerializeField] private Rigidbody rigidbody;
 
     public Bullet lastTouched { get; set; }
 
@@ -12,7 +13,6 @@ public class Health : MonoBehaviour
     {
         health = 1;
         lastTouched = null;
-        var rigidbody = gameObject.GetComponent<Rigidbody>();
         rigidbody.isKinematic = true;
     }
 

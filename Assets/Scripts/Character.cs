@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
 
     public float RotationSpeed { get; set; }
 
+    [SerializeField] private Animator animatorCharacter;
     [SerializeField] private Weapon weapon;
     [SerializeField] private float speed = 2f;
     [SerializeField] private AnimationCurve routeCurve;
@@ -30,9 +31,9 @@ public class Character : MonoBehaviour
     {
         stateMachine = new StateMachine();
         var camera = Camera.main.GetComponent<CameraFollower>();
-        waitingState = new Waiting(stateMachine, this);
-        runningState = new Running(stateMachine, this, camera);
-        shootingState = new Shooting(stateMachine, this, camera);
+        waitingState = new Waiting(stateMachine, this, animatorCharacter);
+        runningState = new Running(stateMachine, this, camera, animatorCharacter);
+        shootingState = new Shooting(stateMachine, this, camera, animatorCharacter);
         deathState = new Death(stateMachine, this);
         OnStartWaiting += StartWaiting;
         health = GetComponent<Health>();
@@ -54,7 +55,7 @@ public class Character : MonoBehaviour
     private void Update() 
     {
         stateMachine.CurrnetState.InputLogic();
-        stateMachine.CurrnetState.LogicUpdate();
+        //stateMachine.CurrnetState.LogicUpdate();
 
         if(health.health <= 0)
         {
@@ -86,7 +87,7 @@ public class Character : MonoBehaviour
 
     public void RotateCharacter()
     {
-        characterCraphics.Rotate(new Vector3(0f, 0f, RotationSpeed) * Time.fixedDeltaTime);
+        characterCraphics.Rotate(new Vector3(RotationSpeed, 0f, 0f) * Time.fixedDeltaTime);
         if(Time.time > changeStateTimer)
         {
             characterCraphics.Rotate(Vector3.zero);
@@ -101,7 +102,7 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(time);
         stateMachine.ChangeState(state);
         changeStateTimer = Time.time + 3f;
-        Time.timeScale = 0.7f;
+        //Time.timeScale = 0.7f;
     }
 
     public void CharacterShoot()
@@ -127,7 +128,7 @@ public class Character : MonoBehaviour
 
     private void StartWaiting()
     {
-        characterCraphics.rotation = Quaternion.Euler(Vector3.zero);
+        characterCraphics.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
         stateMachine.ChangeState(waitingState);
     }
 }

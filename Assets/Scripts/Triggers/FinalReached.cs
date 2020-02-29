@@ -14,7 +14,6 @@ public class FinalReached : MonoBehaviour
         {
             Time.timeScale = 1f;
             CameraFollower.stopFollowing?.Invoke();
-            character.ChangeState(0f, character.waitingState);
             resultsPanel.SetActive(true);
             pauseButton.enabled = false;
         }

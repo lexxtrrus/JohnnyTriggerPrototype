@@ -4,28 +4,30 @@ using UnityEngine;
 public class Shooting : State
 {
     private CameraFollower camera;
+    private Animator animator;
 
-    public Shooting(StateMachine stateMachine, Character character, CameraFollower camera) : base(stateMachine, character)
+    public Shooting(StateMachine stateMachine, Character character, CameraFollower camera, Animator animator) : base(stateMachine, character)
     {
         this.camera = camera;
+        this.animator = animator;
     }
 
     public override void Enter()
     {
-        base.Enter();
+        Time.timeScale = 0.4f;
         ShowWeaponLineShooting.OnStartTargeting?.Invoke();
+        animator.SetTrigger("Jump");
     }
 
     public override void Exit()
     {
-        base.Exit();
         ShowWeaponLineShooting.OnEndTargeting?.Invoke();
         Time.timeScale = 1f;
+        animator.SetTrigger("Grounded");
     }
 
     public override void InputLogic()
     {
-        base.InputLogic();
         if(Input.GetMouseButtonDown(0))
         {
             character.CharacterShoot();
@@ -34,12 +36,10 @@ public class Shooting : State
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate();
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
         character.Movement();
         character.RotateCharacter();
         camera.CameraMovement();
