@@ -12,7 +12,8 @@ public class PauseButton : MonoBehaviour
 
     private void OnEnable()
     {
-        pauseButton.onClick.AddListener(LoadGame);
+        pauseButton.onClick.AddListener(ShowPausePanel);
+
         GameManager.OnRestartFromCheckPoint += ShowButton;
         Character.OnDeath += HideButton;
     }
@@ -23,7 +24,7 @@ public class PauseButton : MonoBehaviour
         Character.OnDeath -= HideButton;
     }
 
-    private void LoadGame()
+    private void ShowPausePanel()
     {
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
