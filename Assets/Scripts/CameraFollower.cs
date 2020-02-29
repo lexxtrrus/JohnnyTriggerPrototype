@@ -26,13 +26,6 @@ public class CameraFollower : MonoBehaviour
         TapForStartCheck.OnTapForStartAction -= StartFollowing;
         stopFollowing -= StopFollowing;
     }
-    /*
-    private void Update()
-    {
-        
-
-        CameraMovement();
-    }*/
 
     private void StartFollowing()
     {
