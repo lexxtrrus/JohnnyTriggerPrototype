@@ -14,8 +14,11 @@ public class FinalReached : MonoBehaviour
         {
             Time.timeScale = 1f;
             CameraFollower.stopFollowing?.Invoke();
+            Character.OnStartWaiting?.Invoke();
             resultsPanel.SetActive(true);
             pauseButton.enabled = false;
         }
+
+        FacebookAppEvent.OnFinalReached?.Invoke();
     }
 }

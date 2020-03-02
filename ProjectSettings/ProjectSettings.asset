@@ -729,10 +729,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: cf6962b9-d335-4f86-b76a-3f075272b0dc
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: JohnnyTriggerPrototype
+  organizationId: topograf94
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

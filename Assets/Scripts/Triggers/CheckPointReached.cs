@@ -13,6 +13,8 @@ public class CheckPointReached : MonoBehaviour
         {
             GameManager.OnCheckpointReached(countOfCheckpoint);
             gameObject.GetComponent<Renderer>().material.color = matGreen.color;
+
+            
         }
     }
 }
