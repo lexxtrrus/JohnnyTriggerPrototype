@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class FinalReached : MonoBehaviour
 {
     [SerializeField] private GameObject resultsPanel;
     [SerializeField] private Button pauseButton;
+
+    public static Action OnFinalPanelShowed;
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -19,6 +22,7 @@ public class FinalReached : MonoBehaviour
             pauseButton.enabled = false;
         }
 
-        FacebookAppEvent.OnFinalReached?.Invoke();
+        //FacebookAppEvent.OnFinalReached?.Invoke();
+        OnFinalPanelShowed?.Invoke();
     }
 }

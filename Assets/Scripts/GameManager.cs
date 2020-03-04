@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Character player;
     [SerializeField] private CameraFollower camera;
+    [SerializeField] private MoneyCounter moneyCounter;
     [SerializeField] private Transform[] enemies;
     [SerializeField] private Transform[] enemiesPlaces;
     [SerializeField] private Transform[] checkPoints;
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviour
         {
             trigger.SetActive(true);
         }
+
+        moneyCounter.LevelEarnedMoneyToNull(); 
     }
 
     public void SetAllSecondCheckPoint()

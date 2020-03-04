@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class Death : State
-{
+{ 
     public Death(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
         
@@ -10,6 +10,7 @@ public class Death : State
 
     public override void Enter()
     {
+
     }
 
     public override void Exit()

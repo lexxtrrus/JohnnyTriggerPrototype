@@ -1,26 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 [RequireComponent(typeof(Button))]
 public class DestroyBanner : MonoBehaviour
 {
-    [SerializeField] private Button destroyBannerButton;
-    void Reset()
+    [SerializeField] private Button button;
+    private void Reset() 
     {
-        destroyBannerButton = GetComponent<Button>();
+        button = GetComponent<Button>();
+    }
+    void Awake()
+    {
+        button.onClick.AddListener(DestroyBannerAndShowVideo);
     }
 
-    private void Awake()
+    private void DestroyBannerAndShowVideo()
     {
-        destroyBannerButton.onClick.AddListener(DestroyBannerOnButtonPressed);
-    }
-
-    private void DestroyBannerOnButtonPressed()
-    {
-        Debug.Log("pressed");
-        IronSource.Agent.destroyBanner();
+        IronSource.Agent.hideBanner();
+        IronSource.Agent.showRewardedVideo();
     }
 }
